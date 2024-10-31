@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, ButtonProps } from "@mui/material";
 import styled from "@emotion/styled";
-import { useTheme } from "@mui/material/styles";
 import { VariantType } from "./variantTypes";
 
-const StyledButton = styled(Button)<{ variantType?: VariantType.Primary | VariantType.Soft }>(({ theme, variantType }) => ({
+const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "variantType",
+})<{ variantType?: VariantType.Primary | VariantType.Soft }>(({ theme, variantType }) => ({
   fontFamily: theme.typography.fontFamily,
   fontWeight: "bold",
   textTransform: "none",
@@ -26,7 +27,5 @@ export const CustomButton = ({
   variantType = VariantType.Primary,
   ...props
 }: ButtonProps & { variantType?: VariantType.Primary | VariantType.Soft }) => {
-  const theme = useTheme();
-
-  return <StyledButton theme={theme} variantType={variantType} {...props} />;
+  return <StyledButton variantType={variantType} {...props} />;
 };

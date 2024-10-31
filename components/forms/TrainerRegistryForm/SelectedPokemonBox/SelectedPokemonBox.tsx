@@ -5,7 +5,7 @@ import { Box, Typography, useTheme, styled, CircularProgress } from "@mui/materi
 import { DetailedPokemon, PokemonType } from "@/types/pokemon.types";
 
 interface SelectedPokemonBoxProps {
-    pokemon: DetailedPokemon;
+    pokemon: DetailedPokemon | null;
     loading: boolean;
 }
 

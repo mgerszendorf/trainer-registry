@@ -148,11 +148,15 @@ export const CustomAutocomplete = ({
             theme={theme}
           />
         )}
-        renderOption={(props, option, { selected }) => (
-          <StyledOption {...props} aria-selected={selected} theme={theme}>
-            {option}
-          </StyledOption>
-        )}
+        renderOption={(props, option, { selected }) => {
+          const { key, ...restProps } = props;
+          return (
+            <StyledOption key={key} {...restProps} aria-selected={selected} theme={theme}>
+              {option}
+            </StyledOption>
+          );
+        }}
+
       />
     </StyledContainer>
   );

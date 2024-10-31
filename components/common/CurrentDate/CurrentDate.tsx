@@ -1,7 +1,10 @@
+
+"use client";
+
 import React from "react";
 import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useCurrentTime } from "@/hooks/useCurrencyTime";
+import { useCurrentTime } from "@/hooks/useCurrentTime"
 
 export const CurrentDate = () => {
     const theme = useTheme();
