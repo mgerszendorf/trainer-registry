@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "../styles/globals.css";
+import ThemeClient from "@/providers/ThemeClient";
 
 const ibmVga = localFont({
   src: "./fonts/Web437_IBM_VGA_9x16.woff",
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={ibmVga.variable} suppressHydrationWarning={true}>
-        {children}
+        <ThemeClient>
+          {children}
+        </ThemeClient>
       </body>
     </html>
   );
