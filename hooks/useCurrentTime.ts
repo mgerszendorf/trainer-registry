@@ -9,17 +9,14 @@ export const useCurrentTime = () => {
         setIsClient(true);
     }, []);
 
-    const { data: currentTime, isLoading, error } = useQuery({
+    const { data: currentTime = "Loading...", isLoading, error } = useQuery({
         queryKey: ["currentTime"],
         queryFn: fetchCurrentDate,
         refetchInterval: 6000000,
         staleTime: 6000000,
+        retry: false,
         enabled: isClient,
     });
-
-    if (!isClient) {
-        return { currentTime: "Loading...", isLoading: true, error: null };
-    }
 
     return { currentTime, isLoading, error };
 };

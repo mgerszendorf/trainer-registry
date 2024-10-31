@@ -73,4 +73,54 @@ describe("TrainerRegistryForm", () => {
             expect((ageInput as HTMLInputElement).value).toBe("");
         });
     });
+
+    it("validates that the trainer's name is between 2 and 20 characters", async () => {
+        renderWithProviders(<TrainerRegistryForm />);
+
+        const nameInput = screen.getByPlaceholderText("Trainer's name");
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+
+        fireEvent.change(nameInput, { target: { value: "A" } });
+        fireEvent.click(submitButton);
+        await waitFor(() => {
+            expect(screen.getByText("Required from 2 to 20 symbols")).toBeInTheDocument();
+        });
+
+        fireEvent.change(nameInput, { target: { value: "A".repeat(21) } });
+        fireEvent.click(submitButton);
+        await waitFor(() => {
+            expect(screen.getByText("Required from 2 to 20 symbols")).toBeInTheDocument();
+        });
+    });
+
+    it("validates that age is between 16 and 99", async () => {
+        renderWithProviders(<TrainerRegistryForm />);
+
+        const ageInput = screen.getByPlaceholderText("Trainer's age");
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+
+        fireEvent.change(ageInput, { target: { value: "15" } });
+        fireEvent.click(submitButton);
+        await waitFor(() => {
+            expect(screen.getByText("Required range from 16-99")).toBeInTheDocument();
+        });
+
+        fireEvent.change(ageInput, { target: { value: "100" } });
+        fireEvent.click(submitButton);
+        await waitFor(() => {
+            expect(screen.getByText("Required range from 16-99")).toBeInTheDocument();
+        });
+    });
+
+    it("validates that a Pokemon is selected", async () => {
+        renderWithProviders(<TrainerRegistryForm />);
+
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+
+        fireEvent.click(submitButton);
+
+        await waitFor(() => {
+            expect(screen.getByText("Choose something")).toBeInTheDocument();
+        });
+    });
 });

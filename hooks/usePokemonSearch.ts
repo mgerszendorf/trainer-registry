@@ -13,9 +13,10 @@ export const usePokemonSearch = () => {
             return response.json();
         },
         enabled: Boolean(query),
+        retry: false,
     });
 
-    const { data: pokemonDetails, isLoading: isLoadingDetails } = useQuery({
+    const { data: pokemonDetails = null, isLoading: isLoadingDetails } = useQuery({
         queryKey: ["pokemonDetails", selectedPokemon],
         queryFn: async () => {
             if (!selectedPokemon) return null;
@@ -24,6 +25,7 @@ export const usePokemonSearch = () => {
             return response.json();
         },
         enabled: Boolean(selectedPokemon),
+        retry: false,
     });
 
     return {

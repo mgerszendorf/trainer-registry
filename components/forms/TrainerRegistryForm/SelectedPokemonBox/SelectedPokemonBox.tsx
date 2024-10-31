@@ -95,7 +95,7 @@ export const SelectedPokemonBox = ({ pokemon, loading }: SelectedPokemonBoxProps
                         />
                     </Box>
                     <Box ml={{ xs: 0, sm: 3 }} mt={{ xs: 2, sm: 0 }} textAlign={{ xs: 'center', sm: 'left' }}>
-                        <Typography sx={commonTextStyles}>
+                        <Typography sx={{ commonTextStyles, textTransform: 'capitalize' }}>
                             Name: {pokemon.name}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', sm: 'flex-start' }, marginBottom: '8px' }}>
