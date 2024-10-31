@@ -1,5 +1,5 @@
 import React from "react";
-import { Autocomplete, TextField, AutocompleteProps, Paper, PaperProps } from "@mui/material";
+import { Autocomplete, TextField, AutocompleteProps, Paper, PaperProps, CircularProgress } from "@mui/material";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
@@ -28,13 +28,14 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       fontSize: "14px",
       fontFamily: theme.typography.fontFamily,
       textOverflow: "ellipsis",
+      textTransform: 'capitalize',
       "&::placeholder": {
         color: theme.palette.grey[200],
         opacity: 1,
       },
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main}`,
       boxShadow: `0 0 0 4px ${theme.palette.primary.light}`,
     },
     "&:hover .MuiOutlinedInput-notchedOutline": {
@@ -42,6 +43,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     },
     ".MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.grey[400],
+      transition: "border 0.2s, box-shadow 0.2s",
     },
   },
   ".MuiFormHelperText-root": {
@@ -51,10 +53,20 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     margin: "5px 0 0 2px",
     color: theme.palette.grey[100],
   },
-  ".Mui-error .MuiFormHelperText-root": {
+  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.grey[400]}`,
+  },
+  "& .MuiOutlinedInput-root.Mui-error:hover .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+  "& .MuiOutlinedInput-root.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.primary.main}`,
+    boxShadow: `0 0 0 4px ${theme.palette.primary.light}`,
+  },
+  "& .MuiFormHelperText-root.Mui-error": {
     color: theme.palette.error.main,
-    border: 'none',
-  }
+  },
+
 }));
 
 const StyledOption = styled("li")(({ theme }) => ({
@@ -63,6 +75,7 @@ const StyledOption = styled("li")(({ theme }) => ({
   color: theme.palette.grey[100],
   cursor: "pointer",
   fontSize: "14px",
+  textTransform: 'capitalize',
   backgroundColor: "transparent !important",
   "&:hover": {
     backgroundColor: `${theme.palette.primary.light} !important`,
@@ -105,6 +118,7 @@ export const CustomAutocomplete = ({
   helperText,
   loading = true,
   error = false,
+  options,
   ...props
 }: CustomAutocompleteProps) => {
   const theme = useTheme();
@@ -114,9 +128,15 @@ export const CustomAutocomplete = ({
       <StyledLabel theme={theme}>{label}</StyledLabel>
       <Autocomplete
         {...props}
-        options={["Option 1", "Option 2", "Option 3", "Option 4"]}
+        options={options}
         PaperComponent={CustomPaper}
-        popupIcon={<CustomExpandLessIcon theme={theme} />}
+        popupIcon={
+          loading ? (
+            <CircularProgress size={24} sx={{ color: theme.palette.grey[100] }} />
+          ) : (
+            <CustomExpandLessIcon theme={theme} />
+          )
+        }
         clearIcon={null}
         renderInput={(params) => (
           <StyledTextField

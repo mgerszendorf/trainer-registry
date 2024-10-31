@@ -8,7 +8,6 @@ const StyledButton = styled(Button)<{ variantType?: VariantType.Primary | Varian
   fontFamily: theme.typography.fontFamily,
   fontWeight: "bold",
   textTransform: "none",
-  width: "100px",
   padding: "10px 24px",
   borderRadius: "2px",
   border: "none",

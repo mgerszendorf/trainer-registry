@@ -22,19 +22,19 @@ const StyledLabel = styled.label(({ theme }) => ({
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: "100%",
   ".MuiOutlinedInput-notchedOutline": {
-    border: "none",
+    border: `1px solid ${theme.palette.grey[400]}`,
+    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
   },
   ".MuiInputBase-root": {
     fontFamily: theme.typography.fontFamily,
     borderRadius: "2px",
-    border: `1px solid ${theme.palette.grey[400]}`,
-    transition: "border 0.2s, box-shadow 0.2s",
+    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
 
-    "&:hover": {
+    "&:hover .MuiOutlinedInput-notchedOutline": {
       border: `1px solid ${theme.palette.primary.main}`,
     },
 
-    "&.Mui-focused, .MuiInputBase-input:focus-visible": {
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       border: `1px solid ${theme.palette.primary.main}`,
       boxShadow: `0 0 0 4px ${theme.palette.primary.light}`,
     },
@@ -57,10 +57,21 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     margin: "5px 0 0 1px",
     color: theme.palette.grey[100],
   },
-  ".Mui-error .MuiFormHelperText-root": {
+  "& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.grey[400]}`,
+  },
+  "& .MuiOutlinedInput-root.Mui-error:hover .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
+  "& .MuiOutlinedInput-root.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    border: `1px solid ${theme.palette.primary.main}`,
+    boxShadow: `0 0 0 4px ${theme.palette.primary.light}`,
+  },
+  "& .MuiFormHelperText-root.Mui-error": {
     color: theme.palette.error.main,
   },
 }));
+
 
 interface CustomInputProps extends Omit<MuiTextFieldProps, 'variant'> {
   label: string;
