@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePokemonSearch } from "./usePokemonSearch";
 
@@ -30,7 +30,9 @@ describe("usePokemonSearch", () => {
 
         const { result } = renderHook(() => usePokemonSearch(), { wrapper: createWrapper() });
 
-        result.current.setQuery("pikachu");
+        await act(async () => {
+            result.current.setQuery("pikachu");
+        });
 
         await waitFor(() => {
             expect(result.current.isLoading).toBe(false);
@@ -46,7 +48,9 @@ describe("usePokemonSearch", () => {
 
         const { result } = renderHook(() => usePokemonSearch(), { wrapper: createWrapper() });
 
-        result.current.setSelectedPokemon("pikachu");
+        await act(async () => {
+            result.current.setSelectedPokemon("pikachu");
+        });
 
         await waitFor(() => {
             expect(result.current.isLoadingDetails).toBe(false);
@@ -59,7 +63,9 @@ describe("usePokemonSearch", () => {
 
         const { result } = renderHook(() => usePokemonSearch(), { wrapper: createWrapper() });
 
-        result.current.setQuery("bulbasaur");
+        await act(async () => {
+            result.current.setQuery("bulbasaur");
+        });
 
         await waitFor(() => {
             expect(result.current.isLoading).toBe(false);
@@ -73,7 +79,9 @@ describe("usePokemonSearch", () => {
 
         const { result } = renderHook(() => usePokemonSearch(), { wrapper: createWrapper() });
 
-        result.current.setSelectedPokemon("bulbasaur");
+        await act(async () => {
+            result.current.setSelectedPokemon("bulbasaur");
+        });
 
         await waitFor(() => {
             expect(result.current.isLoadingDetails).toBe(false);
