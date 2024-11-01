@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Autocomplete, TextField, AutocompleteProps, Paper, PaperProps, CircularProgress } from "@mui/material";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 
-const StyledContainer = styled("div")(({ theme }) => ({
+const StyledContainer = styled.div(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   fontFamily: theme.typography.fontFamily,
   marginTop: "24px"
 }));
 
-const StyledLabel = styled("label")(({ theme }) => ({
+const StyledLabel = styled.label(({ theme }) => ({
   fontSize: "12px",
   lineHeight: "20px",
   fontFamily: theme.typography.fontFamily,
@@ -69,7 +69,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 }));
 
-const StyledOption = styled("li")(({ theme }) => ({
+const StyledOption = styled.li(({ theme }) => ({
   fontFamily: theme.typography.fontFamily,
   padding: "10px 14px !important",
   color: theme.palette.grey[100],
@@ -103,7 +103,7 @@ const CustomPaper = (props: PaperProps) => {
   );
 };
 
-interface CustomAutocompleteProps
+interface AutocompleteDropdownProps
   extends Omit<AutocompleteProps<string, false, false, false>, "renderInput"> {
   label: string;
   placeholder?: string;
@@ -112,7 +112,7 @@ interface CustomAutocompleteProps
   error?: boolean;
 }
 
-export const CustomAutocomplete = ({
+export const AutocompleteDropdown = ({
   label,
   placeholder = "Choose",
   helperText,
@@ -120,8 +120,21 @@ export const CustomAutocomplete = ({
   error = false,
   options,
   ...props
-}: CustomAutocompleteProps) => {
+}: AutocompleteDropdownProps) => {
   const theme = useTheme();
+
+  const renderOption = useCallback(
+    (
+      props: React.HTMLAttributes<HTMLLIElement>,
+      option: string,
+      { selected }: { selected: boolean }
+    ) => (
+      <StyledOption {...props} key={option} aria-selected={selected} theme={theme}>
+        {option}
+      </StyledOption>
+    ),
+    [theme]
+  );
 
   return (
     <StyledContainer>
@@ -148,15 +161,7 @@ export const CustomAutocomplete = ({
             theme={theme}
           />
         )}
-        renderOption={(props, option, { selected }) => {
-          const { key, ...restProps } = props;
-          return (
-            <StyledOption key={key} {...restProps} aria-selected={selected} theme={theme}>
-              {option}
-            </StyledOption>
-          );
-        }}
-
+        renderOption={renderOption}
       />
     </StyledContainer>
   );

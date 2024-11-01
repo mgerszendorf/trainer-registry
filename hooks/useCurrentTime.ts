@@ -12,8 +12,8 @@ export const useCurrentTime = () => {
     const { data: currentTime = "Loading...", isLoading, error } = useQuery({
         queryKey: ["currentTime"],
         queryFn: fetchCurrentDate,
-        refetchInterval: 6000000,
-        staleTime: 6000000,
+        refetchInterval: 60 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
         retry: false,
         enabled: isClient,
     });

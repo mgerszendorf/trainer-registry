@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import { CurrentDate } from "@/components/common/CurrentDate/CurrentDate";
 import { Box } from "@mui/material";
 import { CustomInput } from "@/components/common/CustomInput/CustomInput";
-import { CustomAutocomplete } from "@/components/common/AutocompleteDropdown/AutocompleteDropdown";
+import { AutocompleteDropdown } from "@/components/common/AutocompleteDropdown/AutocompleteDropdown";
 import { SelectedPokemonBox } from "./SelectedPokemonBox/SelectedPokemonBox";
 import { CustomButton } from "@/components/common/CustomButton/CustomButton";
 import { VariantType } from "@/components/common/CustomButton/variantTypes";
@@ -16,7 +16,7 @@ import { BasicPokemon } from "@/types/pokemon.types";
 import { SuccessModal } from "@/components/SuccessModal/SuccessModal";
 import { validateTrainerForm } from "@/utils/validation";
 
-const StyledForm = styled("form")(({ theme }) => ({
+const StyledForm = styled.form(({ theme }) => ({
     width: '100vw',
     maxWidth: '544px',
     margin: '0 auto',
@@ -100,7 +100,7 @@ export const TrainerRegistryForm = () => {
                     />
                 </Box>
                 <Box sx={{ marginTop: '24px' }}>
-                    <CustomAutocomplete
+                    <AutocompleteDropdown
                         label={"Pokemon name"}
                         options={searchResults.map((result: BasicPokemon) => result.name)}
                         loading={isLoading}

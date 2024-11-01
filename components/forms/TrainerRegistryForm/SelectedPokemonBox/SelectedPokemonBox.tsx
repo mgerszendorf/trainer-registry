@@ -20,10 +20,7 @@ const StyledPokemonBox = styled(Box)(({ theme }) => ({
     padding: '24px',
     marginTop: '24px',
     backgroundColor: theme.palette.background.paper,
-    [theme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-        height: '250px',
-    },
+    minHeight: '250px'
 }));
 
 const TypeBadge = styled(Box)(({ theme }) => ({
